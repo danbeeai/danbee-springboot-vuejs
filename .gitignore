@@ -1,0 +1,62 @@
+HELP.md
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+### chatui ###
+!**/src/chatui/.DS_Store
+!**/src/chatui/node_modules
+!**/src/chatui/npm-*
+!**/src/chatui/dist
+
+!**/src/chatui/.env.local
+!**/src/chatui/.env.*.local
+
+# Log files
+!**/src/chatui/npm-debug.log*
+!**/src/chatui/yarn-debug.log*
+!**/src/chatui/yarn-error.log*
+!**/src/chatui/pnpm-debug.log*
+
+# Editor directories and files
+!**/src/chatui/.idea
+!**/src/chatui/.vscode
+!**/src/chatui/*.suo
+!**/src/chatui/*.ntvs*
+!**/src/chatui/*.njsproj
+!**/src/chatui/*.sln
+!**/src/chatui/*.sw?
+
