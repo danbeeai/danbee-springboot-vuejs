@@ -1,0 +1,72 @@
+plugins {
+    //id 'org.springframework.boot' version '2.0.9.RELEASE'
+    id 'org.springframework.boot' version '2.5.4'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id "com.github.node-gradle.node" version "3.1.0"
+    id 'java'
+}
+
+node {
+    download = false
+    version = '14.15.1'
+    npmVersion = '6.14.14'
+    npmInstallCommand = "install"
+
+    workDir = file("./src/chatui")
+    npmWorkDir = file("./src/chatui")
+    nodeProjectDir = file("./src/chatui")
+    nodeModulesDir = file("./src/chatui")
+}
+
+group = 'ai.danbee'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+// bootJar.enabled = false
+// jar.enabled = true
+
+configurations {
+    //developmentOnly
+    //runtimeClasspath {
+    //    extendsFrom developmentOnly
+    //}
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    // https://mvnrepository.com/artifact/com.squareup.retrofit2/retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    // https://mvnrepository.com/artifact/com.squareup.retrofit2/converter-gson
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    compileOnly 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'com.h2database:h2'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+bootJar{
+    archivesBaseName = 'danbee-springboot-vuejs'
+    archiveFileName = 'danbee-springboot-vuejs.jar'
+    archiveVersion = "1.0.0"
+}
+
+task buildChatUI(type: NpmTask) {
+    dependsOn npmInstall
+    description = 'build vue.js'
+    args = ['run', 'build']
+}
+
+processResources.dependsOn 'buildChatUI'
+
+test {
+    useJUnitPlatform()
+}
