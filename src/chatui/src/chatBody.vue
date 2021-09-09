@@ -77,8 +77,8 @@
                                         <div class="message message-carousel-container">
                                             <!-- <span class="message-date">{{chat.timestamp}}</span> -->
                                             <div >
-                                                <agile ref="carousel" :id="'carousel_' + index">
-                                                    <div v-for="(carousel, carouselIdx) in chat.carouselList" :key="carousel.index" class="slide">
+                                                <swiper ref="carousel" :id="'carousel_' + index" :options="swiperOption">
+                                                    <swiper-slide v-for="(carousel, carouselIdx) in chat.carouselList" :key="carousel.index" class="slide">
                                                         <div>
                                                             <div class="img-container">
                                                                 <!-- <img v-bind:src="carousel.imgRoute" class="img-square"/> -->
@@ -118,8 +118,11 @@
                                                                 </button>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </agile>
+                                                    </swiper-slide>
+                                                    <!-- <div class="swiper-pagination" slot="pagination" ></div> -->
+                                                    <div class="swiper-button-prev"></div>
+                                                    <div class="swiper-button-next"></div>
+                                                </swiper>
                                             </div>
                                         </div>
                                     </div>
@@ -338,9 +341,14 @@
     import moment from 'moment';
     import _ from 'lodash';
 
+    import 'swiper/dist/css/swiper.css'
+    import { swiper, swiperSlide } from 'vue-awesome-swiper'
+
     export default {
         name: "chatBoby",
         components: {
+            swiper,
+            swiperSlide
         },
         props: [
           'dataChatbot',
@@ -358,6 +366,18 @@
               frogueUserId = this.dataUser || 'frogueTestId';
             }
             return {
+                swiperOption: {
+                    slidesPerView: 'auto',
+                    spaceBetween: 6,
+                    slidesOffsetBefore: 0,
+                    slidesOffsetAfter: 0,
+                    freeMode: true,
+                    centerInsufficientSlides: true,
+                    pagination: {
+                        el: ".swiper-pagination",
+                        clickable: true
+                    },
+                },
                 publicPath: process.env.BASE_URL,
                 frogueChatViewFlag: false,
 
@@ -1126,8 +1146,12 @@
             },
             changeHeightOnePx: function() {
                 let carouselNodes = this.$refs.carousel;
+                console.log(carouselNodes);
                 if (carouselNodes && carouselNodes.length > 0) {
                     let carouselNode = carouselNodes[carouselNodes.length - 1];
+                    console.log(carouselNode.swiper);
+                    /*
+                    // 여긴 vue agile
                     let agileGetWidth = carouselNode.getWidth;
                     let agileReload = carouselNode.reload;
                     setTimeout(() => {
@@ -1136,6 +1160,7 @@
                     }, 1);
                     agileGetWidth();
                     agileReload();
+                    */
                 }
             },
             openExtension: function() {
